@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tienda Nino Robin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui,sans-serif;background:#f5f5f5;}
+:root{--brand:#E85D2F;--wa:#25D366;--dark:#1e293b;}
+.header{background:var(--brand);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-circle{width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--brand);font-size:14px;}
+.logo h1{font-size:17px;font-weight:800;color:#fff;}
+.logo p{font-size:11px;color:rgba(255,255,255,0.9);}
+.hbtns{display:flex;gap:8px;}
+.hbtn{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:#fff;border-radius:8px;padding:7px 12px;font-size:13px;cursor:pointer;font-weight:600;}
+.cart-n{background:#fff;color:var(--brand);border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-left:4px;}
+.search{background:#fff;padding:0.75rem 1.5rem;border-bottom:1px solid #eee;}
+.search input{width:100%;border:1.5px solid #eee;border-radius:20px;padding:8px 16px;font-size:14px;outline:none;}
+.cats{display:flex;gap:6px;flex-wrap:wrap;padding:0.75rem 1.5rem;background:#fff;border-bottom:1px solid #eee;}
+.cat{font-size:12px;padding:5px 14px;border-radius:20px;border:1.5px solid #eee;background:#fff;color:#555;cursor:pointer;}
+.cat.on{background:var(--brand);color:#fff;border-color:var(--brand);}
+.main{padding:1rem 1.5rem;max-width:900px;margin:0 auto;}
+.banner-reg{background:#fff7ed;border:1.5px solid #fed7aa;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.banner-reg p:first-child{font-size:13px;font-weight:800;color:#c2410c;}
+.banner-reg p:last-child{font-size:12px;color:#888;}
+.banner-cli{background:linear-gradient(135deg,#1e293b,#334155);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.regbtn{background:var(--brand);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:13px;cursor:pointer;font-weight:700;}
+.ticker{background:#1e293b;padding:6px 0;overflow:hidden;margin-bottom:1rem;border-radius:8px;}
+.ticker-inner{display:flex;width:max-content;animation:tick 30s linear infinite;}
+.ticker-inner span{white-space:nowrap;padding:0 2rem;font-size:12px;color:rgba(255,255,255,0.85);}
+@keyframes tick{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.zonas{background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;}
+.zonas h3{font-size:14px;font-weight:800;color:#166534;margin-bottom:8px;}
+.zona{font-size:13px;color:#166534;padding:3px 0;}
+.zb{display:inline-block;font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;margin-right:6px;}
+.zb.pri{background:#bbf7d0;color:#166534;}
+.zb.ok{background:#dcfce7;color:#15803d;}
+.zb.ask{background:#f0fdf4;color:#16a34a;}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem;}
+.stat{background:#fff;border-radius:10px;padding:0.75rem;text-align:center;border:1px solid #eee;}
+.stat-n{font-size:22px;font-weight:800;color:#222;}
+.stat-l{font-size:11px;color:#888;}
+.stitle{font-size:15px;font-weight:800;color:#222;margin:1.25rem 0 0.75rem;}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin-bottom:1rem;}
+.pcard{border:1px solid #eee;border-radius:12px;overflow:hidden;background:#fff;position:relative;}
+.pimg{height:85px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden;}
+.pimg img{width:100%;height:100%;object-fit:cover;}
+.pbody{padding:10px;}
+.pname{font-size:13px;font-weight:700;color:#222;margin-bottom:2px;}
+.pcat{font-size:11px;color:#aaa;margin-bottom:6px;}
+.pfoot{display:flex;align-items:center;justify-content:space-between;}
+.pprice{font-size:14px;font-weight:800;color:var(--brand);}
+.sbadge{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;}
+.s-ok{background:#EAF3DE;color:#3B6D11;}
+.s-low{background:#FAEEDA;color:#854F0B;}
+.s-out{background:#FCEBEB;color:#A32D2D;}
+.addbtn{margin-top:8px;width:100%;padding:6px 0;font-size:12px;font-weight:700;border-radius:8px;border:1.5px solid var(--brand);color:var(--brand);background:transparent;cursor:pointer;}
+.addbtn:hover{background:var(--brand);color:#fff;}
+.addbtn:disabled{border-color:#ddd;color:#aaa;cursor:default;}
+.otag{position:absolute;top:6px;left:6px;background:#c2410c;color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:99px;}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:1rem;}
+.mcard{border:1.5px solid #fecaca;border-radius:12px;background:#fff;padding:12px;}
+.mcard.out{border-color:#eee;opacity:0.6;}
+.mhead{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.mname{font-size:13px;font-weight:800;color:#222;}
+.mref{font-size:11px;color:#aaa;}
+.msbadge{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;margin-top:2px;display:inline-block;}
+.mrow{display:flex;gap:6px;align-items:center;}
+.mrow span{font-size:14px;color:#555;font-weight:800;}
+.mrow input{flex:1;font-size:13px;border:1.5px solid #fecaca;border-radius:8px;padding:6px 8px;outline:none;min-width:0;}
+.mrow button{padding:7px 12px;font-size:12px;font-weight:700;background:#c0392b;color:#fff;border:none;border-radius:8px;cursor:pointer;}
+.wasec{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.wainfo{display:flex;align-items:center;gap:10px;}
+.waico{width:38px;height:38px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.wasec p:first-child{font-size:13px;font-weight:800;color:#166534;}
+.wasec p:last-child{font-size:12px;color:#15803d;}
+.wabtn{background:var(--wa);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;cursor:pointer;font-weight:700;}
+.delsec{background:#fff;border:1px solid #eee;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;}
+.delsec h3{font-size:14px;font-weight:800;color:#222;margin-bottom:4px;}
+.delsub{font-size:12px;color:#888;margin-bottom:8px;}
+.delform{display:flex;gap:8px;flex-wrap:wrap;}
+.delform input{flex:1;min-width:140px;font-size:13px;border:1.5px solid #eee;border-radius:8px;padding:8px 10px;outline:none;}
+.delbtn{padding:8px 16px;font-size:13px;font-weight:800;background:var(--brand);color:#fff;border:none;border-radius:8px;cursor:pointer;}
+.revsec{background:#fff;border:1px solid #eee;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;}
+.revavg{display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;}
+.avn{font-size:32px;font-weight:900;color:#222;}
+.stars{display:flex;gap:2px;}
+.revanimo{background:#fff7ed;border:1.5px solid #fed7aa;border-radius:8px;padding:10px;font-size:12px;color:#c2410c;margin-bottom:10px;line-height:1.5;}
+.revcard{background:#f8f8f8;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
+.revtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.revname{font-size:13px;font-weight:700;color:#222;}
+.revdate{font-size:11px;color:#aaa;}
+.revtext{font-size:13px;color:#444;line-height:1.5;}
+.revform{display:flex;flex-direction:column;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid #eee;}
+.revform input,.revform textarea{font-size:13px;border:1.5px solid #eee;border-radius:8px;padding:8px 10px;outline:none;font-family:inherit;}
+.revform textarea{resize:none;height:70px;}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto;}
+.ov.on{display:flex;}
+.pnl{background:#fff;border-radius:16px;width:100%;max-width:460px;margin:auto;overflow:hidden;}
+.pnlh{background:var(--dark);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;}
+.pnlh p{color:#fff;font-weight:800;font-size:15px;}
+.pnlh button{background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:16px;cursor:pointer;border-radius:8px;padding:4px 10px;}
+.pnlb{padding:1.25rem;display:flex;flex-direction:column;gap:12px;max-height:80vh;overflow-y:auto;}
+.cirow{display:flex;align-items:center;gap:10px;background:#f8f8f8;border-radius:8px;padding:10px 12px;}
+.ciname{flex:1;font-size:13px;font-weight:600;color:#222;}
+.cidel{background:#fee2e2;color:#c0392b;border:none;border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;font-weight:700;}
+.ctotal{font-size:16px;font-weight:800;color:#222;text-align:right;}
+.fg{display:flex;flex-direction:column;gap:4px;}
+.fl{font-size:12px;color:#555;font-weight:700;}
+.fi{font-size:13px;border:1.5px solid #eee;border-radius:8px;padding:9px 12px;outline:none;width:100%;font-family:inherit;}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.fs{font-size:13px;border:1.5px solid #eee;border-radius:8px;padding:9px 12px;outline:none;width:100%;background:#fff;}
+.btnbrand{padding:10px;font-size:13px;background:var(--brand);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;}
+.btngreen{padding:10px;font-size:13px;background:#16a34a;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;}
+.btndark{padding:10px;font-size:13px;background:var(--dark);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;}
+.btnwa{padding:10px;font-size:13px;background:var(--wa);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;}
+.btnred{padding:6px 10px;font-size:11px;background:#fee2e2;color:#c0392b;border:none;border-radius:6px;cursor:pointer;font-weight:700;}
+.btnout{padding:9px;font-size:12px;background:transparent;color:#888;border:1.5px solid #eee;border-radius:8px;cursor:pointer;}
+.errmsg{font-size:12px;color:#c0392b;text-align:center;}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;}
+.tb{flex:1;min-width:46px;padding:7px 3px;font-size:10px;border:1px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-weight:600;}
+.tb.on{background:var(--dark);color:#fff;border-color:var(--dark);}
+.tc{display:none;}
+.tc.on{display:flex;flex-direction:column;gap:10px;}
+.srow{display:flex;align-items:center;gap:8px;background:#f8f8f8;border-radius:8px;padding:9px 12px;}
+.sname{flex:1;font-size:13px;font-weight:700;color:#222;}
+.sinput{width:60px;font-size:13px;border:1.5px solid #eee;border-radius:6px;padding:5px 6px;outline:none;text-align:center;}
+.apl{display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;}
+.apr{display:flex;align-items:center;gap:8px;background:#f8f8f8;border-radius:8px;padding:8px 12px;}
+.api{flex:1;}
+.apn{font-size:13px;font-weight:700;color:#222;}
+.aps{font-size:11px;color:#888;margin-top:2px;}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.sc{background:#f8f8f8;border-radius:8px;padding:10px;text-align:center;}
+.sn{font-size:18px;font-weight:800;color:#222;}
+.sl{font-size:11px;color:#888;}
+.oi{background:#f8f8f8;border-radius:8px;padding:8px 12px;font-size:12px;color:#444;border-left:3px solid var(--brand);margin-bottom:4px;}
+.clrow{display:flex;align-items:center;gap:8px;background:#f8f8f8;border-radius:8px;padding:10px 12px;}
+.clav{width:34px;height:34px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;}
+.cldet{flex:1;}
+.clname{font-size:13px;font-weight:700;color:#222;}
+.clsub{font-size:11px;color:#888;}
+.ptsbadge{background:#f59e0b;color:#fff;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:800;}
+.pedrow{background:#f8f8f8;border-radius:8px;padding:10px 12px;border-left:3px solid #f59e0b;margin-bottom:6px;}
+.pedok{border-left-color:#16a34a;}
+.imgup{display:flex;align-items:center;justify-content:center;gap:6px;background:#f0f9ff;border:1.5px dashed #7dd3fc;border-radius:8px;padding:10px;cursor:pointer;font-size:13px;color:#0369a1;font-weight:600;}
+.imgup input{display:none;}
+.comgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;margin-bottom:1rem;}
+.comcard{border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 3px 12px rgba(0,0,0,0.08);}
+.comtop{background:linear-gradient(135deg,var(--brand),#FF6B35);padding:12px;text-align:center;position:relative;}
+.comemoji{font-size:36px;display:block;}
+.compct{position:absolute;top:8px;right:8px;background:#fff;color:var(--brand);font-size:11px;font-weight:900;padding:2px 8px;border-radius:99px;}
+.combody{padding:10px 12px;}
+.comname{font-size:13px;font-weight:800;color:#222;margin-bottom:2px;}
+.comitems{font-size:11px;color:#666;margin-bottom:6px;}
+.comprices{display:flex;align-items:center;gap:6px;}
+.combefore{font-size:11px;color:#aaa;text-decoration:line-through;}
+.comafter{font-size:15px;font-weight:900;color:var(--brand);}
+.comaddbtn{width:100%;padding:7px;font-size:12px;font-weight:800;background:var(--brand);color:#fff;border:none;border-radius:8px;cursor:pointer;margin-top:8px;}
+.bot-bubble{position:fixed;bottom:20px;right:20px;z-index:200;}
+.bot-toggle{width:56px;height:56px;border-radius:50%;background:var(--wa);border:none;cursor:pointer;font-size:26px;box-shadow:0 4px 15px rgba(37,211,102,0.4);}
+.bot-win{position:absolute;bottom:68px;right:0;width:310px;background:#fff;border:1px solid #ddd;border-radius:16px;overflow:hidden;display:none;box-shadow:0 8px 30px rgba(0,0,0,0.15);}
+.bot-win.on{display:flex;flex-direction:column;}
+.bot-hdr{background:#128C7E;padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.bot-av{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;}
+.bot-ht p:first-child{font-size:14px;font-weight:800;color:#fff;}
+.bot-ht p:last-child{font-size:11px;color:rgba(255,255,255,0.85);}
+.bot-msgs{padding:10px;display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;background:#e5ddd5;}
+.msg{max-width:88%;padding:9px 12px;border-radius:12px;font-size:12px;line-height:1.6;}
+.msg.bot{background:#fff;color:#222;align-self:flex-start;border-bottom-left-radius:3px;}
+.msg.user{background:#dcf8c6;color:#222;align-self:flex-end;border-bottom-right-radius:3px;}
+.bot-quick{padding:8px 10px;display:flex;flex-wrap:wrap;gap:5px;background:#fff;border-top:1px solid #eee;}
+.qbtn{font-size:11px;padding:6px 10px;border-radius:99px;border:1.5px solid #128C7E;background:#fff;color:#075E54;cursor:pointer;font-weight:700;}
+.bot-inp{display:flex;gap:6px;padding:8px 10px;background:#f0f0f0;}
+.bot-inp input{flex:1;font-size:12px;border-radius:20px;padding:7px 14px;border:none;outline:none;background:#fff;}
+.bot-inp button{background:#128C7E;color:#fff;border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:15px;}
+.toast{position:fixed;bottom:90px;right:20px;background:#1e293b;color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:700;max-width:260px;}
+.toast.show{opacity:1;}
+.footer{text-align:center;padding:2rem 1rem;color:#aaa;font-size:12px;border-top:1px solid #eee;margin-top:1rem;line-height:1.8;}
+.footer strong{color:var(--brand);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">
+    <div class="logo-circle">NR</div>
+    <div>
+      <h1>Tienda Nino Robin</h1>
+      <p>Barrio El Pueblito, Barranquilla</p>
+    </div>
+  </div>
+  <div class="hbtns">
+    <button class="hbtn" onclick="openAdmin()">Admin</button>
+    <button class="hbtn" onclick="openCarrito()">Carrito<span class="cart-n" id="cartN">0</span></button>
+  </div>
+</div>
+
+<div class="search"><input type="text" id="searchIn" placeholder="Que buscas hoy vecino?" oninput="renderProds()"/></div>
+<div class="cats" id="catsEl"></div>
+
+<div class="main">
+  <div id="bannerEl"></div>
+  <div class="ticker"><div class="ticker-inner" id="tickEl"></div></div>
+
+  <div class="zonas">
+    <h3>Zonas de domicilio</h3>
+    <div class="zona"><span class="zb pri">Prioridad</span>Barrio El Pueblito - entrega rapida</div>
+    <div class="zona"><span class="zb ok">Disponible</span>Los Angeles 1, 2 y 3</div>
+    <div class="zona"><span class="zb ask">Consultar</span>Zonas lejanas - pregunta por WhatsApp</div>
+  </div>
+
+  <div class="stats" id="statsEl"></div>
+  <div id="ofertasEl"></div>
+
+  <div id="combosArea" style="display:none;">
+    <div class="stitle">Combos del dia</div>
+    <div class="comgrid" id="combosEl"></div>
+  </div>
+
+  <div class="wasec">
+    <div class="wainfo">
+      <div class="waico">W</div>
+      <div>
+        <p>Habla con Robin directamente</p>
+        <p>+57 304 210 9786</p>
+      </div>
+    </div>
+    <button class="wabtn" onclick="openWA()">Escribir</button>
+  </div>
+
+  <div class="delsec">
+    <h3>Pedir domicilio</h3>
+    <p class="delsub">Domicilios en El Pueblito y barrios cercanos.</p>
+    <div class="delform">
+      <input type="text" id="dName" placeholder="Tu nombre completo"/>
+      <input type="tel" id="dPhone" placeholder="Tu celular"/>
+      <input type="text" id="dAddr" placeholder="Tu direccion"/>
+      <button class="delbtn" onclick="requestDelivery()">Confirmar y pedir</button>
+    </div>
+    <div id="dMsg" style="margin-top:8px;font-size:13px;color:#555;"></div>
+  </div>
+
+  <div class="stitle">Productos</div>
+  <div class="pgrid" id="prodsEl"></div>
+
+  <div class="stitle">Carnes y Aves</div>
+  <div class="mgrid" id="meatsEl"></div>
+
+  <div class="stitle">Resenas de vecinos</div>
+  <div class="revsec">
+    <div class="revavg">
+      <span class="avn" id="avgN">5.0</span>
+      <div>
+        <div class="stars" id="avgSt"></div>
+        <div style="font-size:11px;color:#888;margin-top:2px;" id="revCnt">0 resenas</div>
+      </div>
+    </div>
+    <div class="revanimo" id="revAnimo">Se el primero del barrio en dejar una resena!</div>
+    <div id="revList"></div>
+    <div class="revform">
+      <p style="font-size:13px;font-weight:800;color:#333;">Deja tu resena, vecino</p>
+      <input type="text" id="revName" placeholder="Tu nombre"/>
+      <div style="display:flex;gap:6px;align-items:center;"><span style="font-size:13px;color:#555;">Calificacion:</span><div class="stars" id="revStars"></div></div>
+      <textarea id="revText" placeholder="Cuentanos como te fue..."></textarea>
+      <button class="btnbrand" onclick="submitRev()">Enviar resena</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Tienda Nino Robin</strong> - Barrio El Pueblito, Barranquilla<br>
+  Lu-Vi 6:30AM-10PM | Sab 6:30AM-11PM | Dom 7AM-9PM | Festivos 6:30AM-1:30PM<br>
+  WhatsApp: +57 304 210 9786
+</div>
+
+<!-- CARRITO -->
+<div class="ov" id="ovCarrito">
+  <div class="pnl">
+    <div class="pnlh"><p>Tu carrito</p><button onclick="closeCarrito()">X</button></div>
+    <div class="pnlb">
+      <div id="cartItems"></div>
+      <div class="ctotal" id="cartTotal"></div>
+      <button class="btngreen" onclick="irAPedido()">Ir a pedir domicilio</button>
+      <button class="btnred" style="padding:9px;width:100%;font-size:13px;" onclick="vaciarCart()">Vaciar carrito</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="ov" id="ovAdmin">
+  <div class="pnl">
+    <div class="pnlh"><p>Panel administrador</p><button onclick="closeAdmin()">X</button></div>
+    <div class="pnlb">
+      <div id="loginBox">
+        <p style="font-size:13px;color:#555;text-align:center;margin-bottom:10px;">Usuario: robin | Clave: robin2025</p>
+        <input class="fi" type="text" id="aUser" placeholder="Usuario" style="margin-bottom:8px;"/>
+        <input class="fi" type="password" id="aPass" placeholder="Contrasena" style="margin-bottom:8px;" onkeydown="if(event.key==='Enter')doLogin()"/>
+        <button class="btndark" onclick="doLogin()">Entrar</button>
+        <p class="errmsg" id="loginErr" style="margin-top:8px;"></p>
+      </div>
+      <div id="adminBox" style="display:none;">
+        <div class="tabs">
+          <button class="tb on" onclick="showTab('stock')">Carnes</button>
+          <button class="tb" onclick="showTab('pedidos')">Pedidos</button>
+          <button class="tb" onclick="showTab('prods')">Prods</button>
+          <button class="tb" onclick="showTab('add')">Agregar</button>
+          <button class="tb" onclick="showTab('ventas')">Ventas</button>
+          <button class="tb" onclick="showTab('clientes')">Clientes</button>
+          <button class="tb" onclick="showTab('ofertas')">Ofertas</button>
+          <button class="tb" onclick="showTab('combos')">Combos</button>
+          <button class="tb" onclick="showTab('avisos')">Avisos</button>
+        </div>
+        <div class="tc on" id="tc-stock">
+          <p style="font-size:12px;color:#888;">Pon 0 cuando se acabe:</p>
+          <div id="stockRows"></div>
+          <button class="btngreen" onclick="saveStocks()">Guardar stock</button>
+          <button class="btnwa" onclick="alertStock()">Avisar stock bajo</button>
+          <button class="btnout" onclick="doLogout()">Cerrar sesion</button>
+        </div>
+        <div class="tc" id="tc-pedidos">
+          <p style="font-size:12px;color:#888;">Confirma los pedidos que llegaron por WhatsApp. Solo confirmados dan puntos.</p>
+          <div id="pedList" style="max-height:300px;overflow-y:auto;"></div>
+          <button class="btnout" onclick="doLogout()">Cerrar sesion</button>
+        </div>
+        <div class="tc" id="tc-prods">
+          <p style="font-size:12px;color:#888;">Edita precio y stock:</p>
+          <div class="apl" id="apList"></div>
+          <button class="btnout" onclick="doLogout()">Cerrar sesion</button>
+        </div>
+        <div class="tc" id="tc-add">
+          <div class="fg"><div class="fl">Nombre</div><input class="fi" type="text" id="nName" placeholder="Papa criolla"/></div>
+          <div class="fr">
+            <div class="fg"><div class="fl">Categoria</div><input class="fi" type="text" id="nCat" placeholder="Verduras"/></div>
+            <div class="fg"><div class="fl">Emoji</div><input class="fi" type="text" id="nEmoji" placeholder="emoji" maxlength="2"/></div>
+          </div>
+          <div class="fr">
+            <div class="fg"><div class="fl">Precio</div><input class="fi" type="number" id="nPrice" placeholder="1000"/></div>
+            <div class="fg"><div class="fl">Stock</div><input class="fi" type="number" id="nStock" placeholder="30"/></div>
+          </div>
+          <div class="fg"><div class="fl">Unidad</div>
+            <select class="fs" id="nUnit">
+              <option value="und">Unidades</option><option value="kg">Kilos</option><option value="lb">Libras</option><option value="bulto">Bultos</option>
+            </select>
+          </div>
+          <div class="fg"><div class="fl">Foto opcional</div>
+            <label class="imgup">Subir foto<input type="file" accept="image/*" id="nImg" onchange="prevImg(this)"/></label>
+            <img id="imgPrev" style="display:none;width:60px;height:60px;border-radius:8px;object-fit:cover;margin-top:6px;"/>
+          </div>
+          <div class="fg"><div class="fl">Tipo</div>
+            <select class="fs" id="nType" onchange="toggleMeat()">
+              <option value="normal">Normal precio fijo</option>
+              <option value="carne">Carne precio por monto</option>
+            </select>
+          </div>
+          <div id="meatRow" style="display:none;" class="fg"><div class="fl">Precio por libra</div><input class="fi" type="number" id="nMeatP" placeholder="8000"/></div>
+          <button class="btngreen" onclick="addProd()">Agregar producto</button>
+          <button class="btnout" onclick="doLogout()">Cerrar sesion</button>
+        </div>
+        <div class="tc" id="tc-ventas">
+          <div class="sgrid" id="salesEl"></div>
+          <p style="font-size:12px;font-weight:700;color:#333;margin-top:6px;">Historial:</p>
+          <div id="ordersEl" style="max-height:220px;overflow-y:auto;"></div>
+          <button class="btnout" onclick="doLogout()">Cerrar sesion</button>
+        </div>
+        <div class="tc" id="tc-clientes">
+          <p style="font-size:12px;color:#888;">Ranking para anchetas de diciembre:</p>
+          <div style="font-size:11px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px;line-height:1.8;">1-30 pts = Ancheta pequena<br>31-60 pts = Ancheta mediana<br>61-99 pts = Ancheta grande<br>100+ pts = Ancheta PREMIUM</div>
+          <div id="clientesEl" style="max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
+          <button class="btnout" onclick="doLogout()">Cerrar sesion</button>
+        </div>
+        <div class="tc" id="tc-ofertas">
+          <div class="fg"><div class="fl">Producto</div><select class="fs" id="ofProd"></select></div>
+          <div class="fr">
+            <div class="fg"><div class="fl">Precio oferta</div><input class="fi" type="number" id="ofPrice" placeholder="3500"/></div>
+            <div class="fg"><div class="fl">Descuento %</div><input class="fi" type="number" id="ofPct" placeholder="20"/></div>
+          </div>
+          <button class="btngreen" onclick="addOferta()">Activar oferta</button>
+          <div id="ofList" style="display:flex;flex-direction:column;gap:6px;"></div>
+          <button class="btnout" onclick="doLogout()">Cerrar sesion</button>
+        </div>
+        <div class="tc" id="tc-combos">
+          <div class="fg"><div class="fl">Nombre del combo</div><input class="fi" type="text" id="coName" placeholder="Combo Ahorro Semanal"/></div>
+          <div class="fg"><div class="fl">Productos incluidos</div><input class="fi" type="text" id="coItems" placeholder="Arroz + Jabon + Champu"/></div>
+          <div class="fr">
+            <div class="fg"><div class="fl">Precio antes</div><input class="fi" type="number" id="coBefore" placeholder="8000"/></div>
+            <div class="fg"><div class="fl">Precio combo</div><input class="fi" type="number" id="coPrice" placeholder="7000"/></div>
+          </div>
+          <div class="fr">
+            <div class="fg"><div class="fl">Emoji</div><input class="fi" type="text" id="coEmoji" placeholder="emoji" maxlength="2"/></div>
+            <div class="fg"><div class="fl">% Descuento</div><input class="fi" type="number" id="coPct" placeholder="15"/></div>
+          </div>
+          <button class="btngreen" onclick="addCombo()">Crear combo</button>
+          <div id="coList" style="display:flex;flex-direction:column;gap:6px;"></div>
+          <button class="btnout" onclick="doLogout()">Cerrar sesion</button>
+        </div>
+        <div class="tc" id="tc-avisos">
+          <div class="fg"><div class="fl">Tipo de aviso</div>
+            <select class="fs" id="avTipo">
+              <option value="agotado">Producto agotado</option>
+              <option value="nuevo">Producto nuevo llego</option>
+              <option value="oferta">Oferta especial</option>
+              <option value="libre">Mensaje personalizado</option>
+            </select>
+          </div>
+          <div class="fg"><div class="fl">Producto o mensaje</div><input class="fi" type="text" id="avProd" placeholder="Carne blanda, Papa criolla..."/></div>
+          <div id="avPrev" style="background:#f8f8f8;border-radius:8px;padding:10px;font-size:12px;color:#444;line-height:1.6;min-height:50px;"></div>
+          <button class="btnout" onclick="prevAviso()">Ver preview</button>
+          <button class="btnwa" onclick="sendAviso()">Abrir WhatsApp con mensaje</button>
+          <button class="btnout" onclick="doLogout()">Cerrar sesion</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENTE -->
+<div class="ov" id="ovCliente">
+  <div class="pnl">
+    <div class="pnlh"><p id="cliTitle">Mi cuenta</p><button onclick="closeCliente()">X</button></div>
+    <div class="pnlb">
+      <div id="cliLogin">
+        <p style="font-size:13px;color:#555;text-align:center;margin-bottom:10px;">Registrate y acumula puntos para la ancheta de diciembre.</p>
+        <div class="fg" style="margin-bottom:8px;"><div class="fl">Celular</div><input class="fi" type="tel" id="cliCel" placeholder="3001234567"/></div>
+        <div class="fg" style="margin-bottom:8px;"><div class="fl">Nombre</div><input class="fi" type="text" id="cliNombre" placeholder="Tu nombre completo"/></div>
+        <button class="btnbrand" onclick="doClientLogin()">Entrar o Registrarme</button>
+        <p class="errmsg" id="cliErr" style="margin-top:8px;"></p>
+      </div>
+      <div id="cliProfile" style="display:none;">
+        <div style="text-align:center;margin-bottom:12px;">
+          <div style="width:60px;height:60px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;margin:0 auto 8px;" id="cliAv"></div>
+          <p style="font-size:16px;font-weight:800;color:#222;" id="cliName"></p>
+          <p style="font-size:13px;color:#888;" id="cliPhone"></p>
+        </div>
+        <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:14px;margin-bottom:12px;">
+          <p style="font-size:30px;font-weight:900;color:var(--brand);text-align:center;" id="cliPts"></p>
+          <p style="font-size:12px;color:#888;text-align:center;">puntos confirmados</p>
+          <p style="font-size:13px;font-weight:800;text-align:center;margin-top:6px;" id="cliNivel"></p>
+          <p style="font-size:11px;color:#555;text-align:center;margin-top:4px;" id="cliAncheta"></p>
+        </div>
+        <p style="font-size:11px;color:#888;background:#f8f8f8;border-radius:8px;padding:8px;line-height:1.6;margin-bottom:12px;">Los puntos se confirman cuando Robin verifica tu pedido en WhatsApp.</p>
+        <p style="font-size:12px;font-weight:800;color:#333;margin-bottom:6px;">Mis compras confirmadas:</p>
+        <div id="cliOrders" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;"></div>
+        <button class="btnout" style="margin-top:12px;" onclick="doClientLogout()">Cerrar sesion</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOT -->
+<div class="bot-bubble">
+  <div class="bot-win" id="botWin">
+    <div class="bot-hdr">
+      <div class="bot-av">R</div>
+      <div class="bot-ht">
+        <p>Robin Bot</p>
+        <p>Tienda Nino Robin - El Pueblito</p>
+      </div>
+    </div>
+    <div class="bot-msgs" id="botMsgs"></div>
+    <div class="bot-quick" id="botQuick"></div>
+    <div class="bot-inp">
+      <input type="text" id="botIn" placeholder="Escribe aqui vecino..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button onclick="sendMsg()">&#10148;</button>
+    </div>
+  </div>
+  <button class="bot-toggle" onclick="toggleBot()">&#128172;</button>
+</div>
+<div class="toast" id="toastEl"></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,collection,doc,getDoc,setDoc,addDoc,updateDoc,getDocs,query,orderBy,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const cfg={apiKey:"AIzaSyAahTaKOScdZIIpqaHzTDymkHdIynmZfME",authDomain:"tienda-robin.firebaseapp.com",projectId:"tienda-robin",storageBucket:"tienda-robin.firebasestorage.app",messagingSenderId:"444075722593",appId:"1:444075722593:web:1760549941c801d867a720"};
+const app=initializeApp(cfg);
+const db=getFirestore(app);
+window.db=db;
+window.fs={collection,doc,getDoc,setDoc,addDoc,updateDoc,getDocs,query,orderBy,serverTimestamp};
+window.dispatchEvent(new Event("fbOk"));
+</script>
+
+<script>
+var AU="robin",AP="robin2025",WA="3042109786";
+var NV=[
+  {min:0,max:0,n:"Sin puntos aun",a:"Haz tu primera compra de $20.000 o mas"},
+  {min:1,max:30,n:"Cliente frecuente",a:"Ancheta pequena en diciembre"},
+  {min:31,max:60,n:"Cliente fiel",a:"Ancheta mediana en diciembre"},
+  {min:61,max:99,n:"Cliente estrella",a:"Ancheta grande en diciembre"},
+  {min:100,max:9999,n:"Cliente VIP",a:"Ancheta PREMIUM en diciembre"}
+];
+var REC={
+  desayuno:[{nombre:"Desayuno con higado",ing:"Higado",nota:"Rico y nutritivo"},{nombre:"Caldo mananero",ing:"Panza",nota:"Calientito y llenador"}],
+  almuerzo:[{nombre:"Sancocho de pollo",ing:"Pollo entero",nota:"El clasico costeno"},{nombre:"Bandeja con carne",ing:"Carne blanda",nota:"Completo y sabroso"},{nombre:"Sopa de puchero",ing:"Pechuga con hueso",nota:"Nutritivo"}],
+  cena:[{nombre:"Pechuga a la plancha",ing:"Pechuga sin hueso",nota:"Ligero para la noche"},{nombre:"Sopa de carne",ing:"Carne blanda",nota:"Calientito"}]
+};
+var BP=[
+  {id:1,name:"Arroz Viviana (libra)",cat:"Granos",price:2000,stock:50,emoji:"",type:"normal",unit:"lb"},
+  {id:2,name:"Jabon Protex",cat:"Aseo",price:3800,stock:20,emoji:"",type:"normal",unit:"und"},
+  {id:3,name:"Head Shoulders sachet",cat:"Aseo",price:1200,stock:30,emoji:"",type:"normal",unit:"und"}
+];
+var BM=[
+  {id:"m1",name:"Carne blanda",priceRef:19000,stock:10},
+  {id:"m2",name:"Pollo entero",priceRef:5500,stock:10},
+  {id:"m3",name:"Pechuga con hueso",priceRef:8000,stock:7},
+  {id:"m4",name:"Pechuga sin hueso",priceRef:11000,stock:5},
+  {id:"m5",name:"Higado",priceRef:5000,stock:5},
+  {id:"m6",name:"Panza",priceRef:5000,stock:5}
+];
+var prods=[],meats=[],cart=[],revs=[],orders=[],ofertas=[],combos=[];
+var activeCat="Todos",botOpen=false,adminIn=false,curTab="stock";
+var nxtId=100,selStars=5,imgData=null,curCli=null;
+var botSt={step:"idle",oc:null};
+var lastProd="";
+
+function load(){
+  prods=JSON.parse(localStorage.getItem("p")||"null")||JSON.parse(JSON.stringify(BP));
+  meats=JSON.parse(localStorage.getItem("m")||"null")||JSON.parse(JSON.stringify(BM));
+  revs=JSON.parse(localStorage.getItem("r")||"[]");
+  orders=JSON.parse(localStorage.getItem("o")||"[]");
+  ofertas=JSON.parse(localStorage.getItem("of")||"[]");
+  combos=JSON.parse(localStorage.getItem("co")||"[]");
+  nxtId=prods.reduce(function(a,p){return Math.max(a,p.id);},99)+1;
+  try{var s=localStorage.getItem("cli");if(s)curCli=JSON.parse(s);}catch(e){curCli=null;}
+}
+function save(){
+  localStorage.setItem("p",JSON.stringify(prods));
+  localStorage.setItem("m",JSON.stringify(meats));
+  localStorage.setItem("r",JSON.stringify(revs));
+  localStorage.setItem("o",JSON.stringify(orders));
+  localStorage.setItem("of",JSON.stringify(ofertas));
+  localStorage.setItem("co",JSON.stringify(combos));
+}
+function getNv(pts){for(var i=NV.length-1;i>=0;i--)if(pts>=NV[i].min&&pts<=NV[i].max)return NV[i];return NV[0];}
+
+function renderTicker(){
+  var items=[];
+  var d=prods.filter(function(p){return p.stock>0;});
+  var c=meats.filter(function(m){return m.stock>0;});
+  if(d.length)items.push("Disponibles hoy: "+d.map(function(p){return p.name+" $"+p.price.toLocaleString("es-CO");}).join(" | "));
+  if(c.length)items.push("Carnes frescas: "+c.map(function(m){return m.name+" $"+m.priceRef.toLocaleString("es-CO")+"/lib";}).join(" | "));
+  items.push("Domicilios en El Pueblito y barrios cercanos");
+  items.push("Acumula puntos para la ancheta de diciembre");
+  if(lastProd)items.push("Nuevo: "+lastProd);
+  var txt=items.map(function(i){return"<span>"+i+"</span>";}).join("");
+  document.getElementById("tickEl").innerHTML=txt+txt;
+}
+
+async function fbG(col,id){if(!window.db)return null;try{var s=await window.fs.getDoc(window.fs.doc(window.db,col,id));return s.exists()?Object.assign({id:s.id},s.data()):null;}catch(e){return null;}}
+async function fbS(col,id,data){if(!window.db)return;try{await window.fs.setDoc(window.fs.doc(window.db,col,id),data,{merge:true});}catch(e){}}
+async function fbAS(col,id,sub,data){if(!window.db)return null;try{var r=await window.fs.addDoc(window.fs.collection(window.db,col,id,sub),Object.assign({},data,{fecha:window.fs.serverTimestamp()}));return r.id;}catch(e){return null;}}
+async function fbGS(col,id,sub){if(!window.db)return[];try{var q=window.fs.query(window.fs.collection(window.db,col,id,sub),window.fs.orderBy("fecha","desc"));var s=await window.fs.getDocs(q);return s.docs.map(function(d){return Object.assign({id:d.id},d.data());});}catch(e){return[];}}
+async function fbGA(col){if(!window.db)return[];try{var s=await window.fs.getDocs(window.fs.collection(window.db,col));return s.docs.map(function(d){return Object.assign({id:d.id},d.data());});}catch(e){return[];}}
+async function fbUS(col,id,sub,sid,data){if(!window.db)return;try{await window.fs.updateDoc(window.fs.doc(window.db,col,id,sub,sid),data);}catch(e){}}
+
+async function doClientLogin(){
+  var cel=document.getElementById("cliCel").value.trim().replace(/\D/g,"");
+  var nombre=document.getElementById("cliNombre").value.trim();
+  if(!cel||cel.length<7){document.getElementById("cliErr").textContent="Ingresa un celular valido.";return;}
+  if(!nombre){document.getElementById("cliErr").textContent="Ingresa tu nombre.";return;}
+  document.getElementById("cliErr").textContent="";
+  var cl=await fbG("clientes",cel);
+  if(!cl){cl={cel:cel,nombre:nombre,puntos:0,totalGastado:0};await fbS("clientes",cel,cl);toast("Bienvenido vecino "+nombre+"!");}
+  else{toast("Que bueno verte de nuevo "+cl.nombre+"!");}
+  curCli=Object.assign({},cl,{cel:cel});
+  localStorage.setItem("cli",JSON.stringify(curCli));
+  showCliProfile();renderBanner();
+}
+function doClientLogout(){curCli=null;localStorage.removeItem("cli");renderBanner();closeCliente();}
+async function showCliProfile(){
+  document.getElementById("cliLogin").style.display="none";
+  document.getElementById("cliProfile").style.display="block";
+  document.getElementById("cliAv").textContent=curCli.nombre.charAt(0).toUpperCase();
+  document.getElementById("cliName").textContent=curCli.nombre;
+  document.getElementById("cliPhone").textContent="Cel: "+curCli.cel;
+  var pts=curCli.puntos||0;
+  document.getElementById("cliPts").textContent=pts;
+  var nv=getNv(pts);
+  document.getElementById("cliNivel").textContent=nv.n;
+  document.getElementById("cliAncheta").textContent=nv.a;
+  var ped=await fbGS("clientes",curCli.cel,"pedidos");
+  var conf=ped.filter(function(p){return p.confirmado;});
+  document.getElementById("cliOrders").innerHTML=conf.length?conf.map(function(p){return'<div class="oi"><strong>'+p.items+"</strong><br>$"+(p.total||0).toLocaleString("es-CO")+" | +1 punto</div>";}).join(""):"<p style='font-size:12px;color:#aaa;'>Aun no tienes compras confirmadas.</p>";
+}
+function renderBanner(){
+  var el=document.getElementById("bannerEl");
+  if(curCli){
+    var pts=curCli.puntos||0;var nv=getNv(pts);
+    el.innerHTML='<div class="banner-cli"><div style="display:flex;align-items:center;gap:10px;"><div style="width:40px;height:40px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;">'+curCli.nombre.charAt(0).toUpperCase()+'</div><div><div style="font-size:14px;font-weight:800;color:#fff;">Hola vecino, '+curCli.nombre+'</div><div style="font-size:12px;color:#94a3b8;">'+nv.n+' - '+pts+' pts</div></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#f59e0b;color:#fff;border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;">'+pts+' pts</span><button onclick="openCliente()" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;font-weight:600;">Mi perfil</button></div></div>';
+  }else{
+    el.innerHTML='<div class="banner-reg"><div><p>Eres vecino de El Pueblito?</p><p>Registrate y gana puntos para la ancheta de diciembre</p></div><button class="regbtn" onclick="openCliente()">Registrarme gratis</button></div>';
+  }
+}
+function openCliente(){document.getElementById("ovCliente").classList.add("on");if(curCli){document.getElementById("cliTitle").textContent="Mi perfil";showCliProfile();}else{document.getElementById("cliLogin").style.display="block";document.getElementById("cliProfile").style.display="none";}}
+function closeCliente(){document.getElementById("ovCliente").classList.remove("on");}
+
+function sbadge(s,u){u=u||"und";if(s===0)return'<span class="sbadge s-out">Agotado</span>';if(s<=5)return'<span class="sbadge s-low">'+s+" "+u+"</span>";return'<span class="sbadge s-ok">'+s+" "+u+"</span>";}
+function msbadge(s){if(s<=0)return'<span class="msbadge s-out">Agotado hoy</span>';if(s<=3)return'<span class="msbadge s-low">Pocas libras</span>';return'<span class="msbadge s-ok">Disponible</span>';}
+function stars(n,sz){sz=sz||14;return[1,2,3,4,5].map(function(i){return'<span style="font-size:'+sz+'px;color:'+(i<=n?"#f59e0b":"#ddd")+';">&#9733;</span>';}).join("");}
+
+function renderCats(){
+  var cats=["Todos"].concat(Array.from(new Set(prods.map(function(p){return p.cat;}))));
+  document.getElementById("catsEl").innerHTML=cats.map(function(c){return'<button class="cat '+(c===activeCat?"on":"")+'" onclick="setCat(\''+c+'\')">'+c+'</button>';}).join("");
+}
+function setCat(c){activeCat=c;renderCats();renderProds();}
+
+function renderStats(){
+  var t=prods.length+meats.length;
+  var i=prods.filter(function(p){return p.stock>0;}).length+meats.filter(function(m){return m.stock>0;}).length;
+  var l=prods.filter(function(p){return p.stock>0&&p.stock<=5;}).length+meats.filter(function(m){return m.stock>0&&m.stock<=3;}).length;
+  document.getElementById("statsEl").innerHTML=
+    '<div class="stat"><div class="stat-n">'+t+'</div><div class="stat-l">Productos</div></div>'+
+    '<div class="stat"><div class="stat-n">'+i+'</div><div class="stat-l">Disponibles</div></div>'+
+    '<div class="stat"><div class="stat-n">'+l+'</div><div class="stat-l">Stock bajo</div></div>';
+}
+function getOf(id){return ofertas.find(function(o){return o.id===id;});}
+
+function renderOfertas(){
+  var ac=ofertas.filter(function(o){return prods.find(function(p){return p.id===o.id;});});
+  if(!ac.length){document.getElementById("ofertasEl").innerHTML="";return;}
+  var c=ac.map(function(o){var p=prods.find(function(x){return x.id===o.id;});return'<div class="oferta-card" style="background:#fff;border:1.5px solid #fed7aa;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;"><div><div style="font-size:12px;font-weight:600;color:#222;">'+p.name+'</div><div style="display:flex;align-items:center;gap:6px;margin-top:3px;"><span style="font-size:11px;color:#aaa;text-decoration:line-through;">$'+p.price.toLocaleString("es-CO")+'</span><span style="font-size:14px;font-weight:800;color:#c2410c;">$'+o.price.toLocaleString("es-CO")+'</span><span style="font-size:10px;background:#fee2e2;color:#c0392b;border-radius:99px;padding:2px 8px;font-weight:700;">-'+o.pct+'%</span></div></div></div>';}).join("");
+  document.getElementById("ofertasEl").innerHTML='<div style="background:linear-gradient(135deg,#fff7ed,#fff);border:1.5px solid #fed7aa;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;"><div style="font-size:14px;font-weight:800;color:#c2410c;margin-bottom:0.75rem;">Ofertas del dia</div><div style="display:flex;gap:10px;flex-wrap:wrap;">'+c+'</div></div>';
+}
+
+function renderCombos(){
+  var el=document.getElementById("combosArea");
+  if(!combos.length){el.style.display="none";return;}
+  el.style.display="block";
+  document.getElementById("combosEl").innerHTML=combos.map(function(c,i){
+    var b=c.priceBefore||Math.round(c.price*1.15);
+    var pct=c.pct||Math.round((1-c.price/b)*100);
+    var ah=b-c.price;
+    return'<div class="comcard"><div class="comtop"><span class="comemoji">'+(c.emoji||"")+'</span><span class="compct">-'+pct+'%</span>'+(ah>0?'<div style="background:#fef9c3;color:#854d0e;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;display:inline-block;margin-top:4px;">Ahorra $'+ah.toLocaleString("es-CO")+'</div>':'')+'</div><div class="combody"><div class="comname">'+c.name+'</div><div class="comitems">'+c.items+'</div><div class="comprices"><span class="combefore">$'+b.toLocaleString("es-CO")+'</span><span class="comafter">$'+c.price.toLocaleString("es-CO")+'</span></div><button class="comaddbtn" onclick="addComboCart('+i+')">Agregar al carrito</button></div></div>';
+  }).join("");
+}
+function addComboCart(i){var c=combos[i];if(!c)return;cart.push({id:"co"+i+Date.now(),name:"Combo: "+c.name,price:c.price,qty:1,isC:true});updCart();toast("Combo "+c.name+" agregado");}
+
+function renderProds(){
+  var s=document.getElementById("searchIn").value.toLowerCase();
+  var f=prods.filter(function(p){return(activeCat==="Todos"||p.cat===activeCat)&&(p.name.toLowerCase().includes(s)||p.cat.toLowerCase().includes(s));});
+  if(!f.length){document.getElementById("prodsEl").innerHTML='<div style="grid-column:1/-1;text-align:center;padding:1.5rem;color:#aaa;">No encontrado</div>';return;}
+  document.getElementById("prodsEl").innerHTML=f.map(function(p){
+    var of=getOf(p.id);var dp=of?of.price:p.price;var u=p.unit||"und";
+    return'<div class="pcard">'+(of?'<span class="otag">-'+of.pct+'%</span>':'')+
+      '<div class="pimg">'+(p.img?'<img src="'+p.img+'" alt="'+p.name+'"/>':'')+'</div>'+
+      '<div class="pbody"><div class="pname">'+p.name+'</div><div class="pcat">'+p.cat+'</div>'+
+      '<div class="pfoot"><span class="pprice">$'+dp.toLocaleString("es-CO")+'</span>'+sbadge(p.stock,u)+'</div>'+
+      '<button class="addbtn" '+(p.stock===0?'disabled ':'')+'onclick="addToCart('+p.id+')">'+(p.stock===0?'Agotado':'+ Agregar')+'</button></div></div>';
+  }).join("");
+}
+
+function renderMeats(){
+  document.getElementById("meatsEl").innerHTML=meats.map(function(m){
+    return'<div class="mcard '+(m.stock<=0?"out":"")+'">'+
+      '<div class="mhead"><div><div class="mname">'+m.name+'</div>'+(m.priceRef>0?'<div class="mref">Ref: $'+m.priceRef.toLocaleString("es-CO")+'/libra</div>':'')+msbadge(m.stock)+'</div></div>'+
+      (m.stock>0?'<div class="mrow"><span>$</span><input type="number" id="m'+m.id+'" placeholder="Cuanto quieres?" min="0" step="500"/><button onclick="addMeatCart(\''+m.id+'\',\''+m.name+'\')">+ Agregar</button></div>':
+      '<p style="font-size:12px;color:#c0392b;margin-top:4px;font-weight:700;">Agotado por hoy</p>')+
+      '</div>';
+  }).join("");
+}
+
+function renderRevs(){
+  var avg=revs.length?revs.reduce(function(s,r){return s+r.stars;},0)/revs.length:5;
+  document.getElementById("avgN").textContent=avg.toFixed(1);
+  document.getElementById("avgSt").innerHTML=stars(Math.round(avg),18);
+  document.getElementById("revCnt").textContent=revs.length+" resenas de vecinos";
+  document.getElementById("revAnimo").textContent=revs.length===0?"Se el primero del barrio en dejar una resena! Tu opinion ayuda a otros vecinos.":"Gracias a todos los vecinos que compartieron su experiencia!";
+  document.getElementById("revList").innerHTML=revs.slice().reverse().slice(0,5).map(function(r){
+    return'<div class="revcard"><div class="revtop"><span class="revname">'+r.name+'</span><span class="revdate">'+r.date+'</span></div>'+
+      '<div style="margin-bottom:4px;">'+stars(r.stars,13)+'</div><div class="revtext">'+r.text+'</div></div>';
+  }).join("");
+  renderRevStars(selStars);
+}
+function renderRevStars(n){
+  document.getElementById("revStars").innerHTML=[1,2,3,4,5].map(function(i){
+    return'<span style="font-size:24px;color:'+(i<=n?"#f59e0b":"#ddd")+';cursor:pointer;" onclick="selStar('+i+')">&#9733;</span>';
+  }).join("");
+}
+function selStar(n){selStars=n;renderRevStars(n);}
+function submitRev(){
+  var name=document.getElementById("revName").value.trim();
+  var text=document.getElementById("revText").value.trim();
+  if(!name||!text){toast("Completa tu nombre y comentario");return;}
+  revs.push({name:name,stars:selStars,text:text,date:new Date().toLocaleDateString("es-CO")});
+  save();renderRevs();
+  document.getElementById("revName").value="";document.getElementById("revText").value="";
+  selStars=5;toast("Gracias vecino! Tu resena ayuda mucho");
+}
+
+function renderAll(){renderCats();renderStats();renderProds();renderMeats();renderOfertas();renderRevs();renderBanner();renderCombos();renderTicker();}
+
+function updCart(){document.getElementById("cartN").textContent=cart.reduce(function(s,x){return s+x.qty;},0);}
+function addToCart(id){
+  var p=prods.find(function(x){return x.id===id;});if(!p||p.stock===0)return;
+  var of=getOf(id);var price=of?of.price:p.price;
+  var ex=cart.find(function(x){return x.id===id&&!x.isMeat&&!x.isC;});
+  if(ex)ex.qty++;else cart.push(Object.assign({},p,{price:price,qty:1}));
+  updCart();toast(p.name+" agregado");
+}
+function addMeatCart(id,name){
+  var inp=document.getElementById("m"+id);var val=parseInt(inp.value);
+  if(!val||val<=0){toast("Escribe un monto valido");return;}
+  cart.push({id:id+Date.now(),name:name,price:val,qty:1,isMeat:true});
+  updCart();inp.value="";toast("$"+val.toLocaleString("es-CO")+" de "+name+" agregado");
+}
+function openCarrito(){document.getElementById("ovCarrito").classList.add("on");renderCart();}
+function closeCarrito(){document.getElementById("ovCarrito").classList.remove("on");}
+function renderCart(){
+  var el=document.getElementById("cartItems");var tel=document.getElementById("cartTotal");
+  if(!cart.length){el.innerHTML='<p style="font-size:13px;color:#aaa;text-align:center;padding:1.5rem;">El carrito esta vacio</p>';tel.textContent="";return;}
+  var total=cart.reduce(function(s,x){return s+(x.isMeat||x.isC?x.price:x.price*x.qty);},0);
+  el.innerHTML=cart.map(function(x,i){
+    var lbl=(x.isMeat||x.isC)?x.name+" - $"+x.price.toLocaleString("es-CO"):x.name+" x"+x.qty+" = $"+(x.price*x.qty).toLocaleString("es-CO");
+    return'<div class="cirow"><span class="ciname">'+lbl+'</span><button class="cidel" onclick="rmCart('+i+')">Quitar</button></div>';
+  }).join("");
+  tel.textContent="Total: $"+total.toLocaleString("es-CO");
+}
+function rmCart(i){cart.splice(i,1);updCart();renderCart();toast("Producto quitado");}
+function vaciarCart(){if(!cart.length)return;if(confirm("Vaciar todo el carrito?")){cart=[];updCart();renderCart();}}
+function irAPedido(){if(!cart.length){toast("El carrito esta vacio");return;}closeCarrito();document.getElementById("dName").scrollIntoView({behavior:"smooth"});toast("Llena el formulario de domicilio abajo");}
+
+async function requestDelivery(){
+  var name=document.getElementById("dName").value.trim();
+  var phone=document.getElementById("dPhone").value.trim();
+  var addr=document.getElementById("dAddr").value.trim();
+  var msg=document.getElementById("dMsg");
+  if(!name||!addr){msg.textContent="Por favor ingresa tu nombre y direccion.";return;}
+  if(!cart.length){msg.textContent="Agrega productos al carrito primero.";return;}
+  var total=cart.reduce(function(s,x){return s+(x.isMeat||x.isC?x.price:x.price*x.qty);},0);
+  var items=cart.map(function(x){return(x.isMeat||x.isC)?x.name+": $"+x.price.toLocaleString("es-CO"):x.name+" x"+x.qty;}).join(", ");
+  var cel=phone.replace(/\D/g,"")||"anonimo";
+  var pid=null;
+  if(window.db&&cel!=="anonimo"){
+    pid=await fbAS("clientes",cel,"pedidos",{nombre:name,items:items,total:total,addr:addr,confirmado:false,puntos:0});
+    var cl=await fbG("clientes",cel);
+    if(!cl)await fbS("clientes",cel,{cel:cel,nombre:name,puntos:0,totalGastado:0});
+  }
+  orders.push({id:pid,cel:cel,name:name,phone:phone,addr:addr,items:items,total:total,confirmado:false,date:new Date().toLocaleString("es-CO")});
+  save();
+  msg.innerHTML="Pedido enviado para <strong>"+name+"</strong> - "+addr+".<br>Total: <strong>$"+total.toLocaleString("es-CO")+"</strong><br><small style='color:#888;'>Los puntos se confirman cuando Robin verifica tu pedido.</small>";
+  var txt=encodeURIComponent("Nuevo pedido - Tienda Nino Robin\nCliente: "+name+"\nCelular: "+(phone||"No indicado")+"\nDireccion: "+addr+"\nProductos: "+items+"\nTotal: $"+total.toLocaleString("es-CO"));
+  window.open("https://wa.me/57"+WA+"?text="+txt,"_blank");
+  cart=[];updCart();
+  document.getElementById("dName").value="";document.getElementById("dPhone").value="";document.getElementById("dAddr").value="";
+}
+function openWA(){window.open("https://wa.me/57"+WA+"?text="+encodeURIComponent("Hola Robin! Tengo una consulta sobre la tienda"),"_blank");}
+
+function openAdmin(){document.getElementById("ovAdmin").classList.add("on");if(adminIn)showAdmin();}
+function closeAdmin(){document.getElementById("ovAdmin").classList.remove("on");document.getElementById("aPass").value="";document.getElementById("loginErr").textContent="";}
+function doLogin(){
+  var u=document.getElementById("aUser").value.trim();
+  var p=document.getElementById("aPass").value;
+  if(u===AU&&p===AP){adminIn=true;showAdmin();}
+  else document.getElementById("loginErr").textContent="Usuario o clave incorrectos.";
+}
+function showAdmin(){document.getElementById("loginBox").style.display="none";document.getElementById("adminBox").style.display="block";showTab(curTab);}
+function showTab(t){
+  curTab=t;
+  var ts=["stock","pedidos","prods","add","ventas","clientes","ofertas","combos","avisos"];
+  document.querySelectorAll(".tb").forEach(function(b,i){b.classList.toggle("on",ts[i]===t);});
+  document.querySelectorAll(".tc").forEach(function(c){c.classList.remove("on");});
+  document.getElementById("tc-"+t).classList.add("on");
+  if(t==="stock")renderStockRows();
+  if(t==="pedidos")renderPeds();
+  if(t==="prods")renderAdminProds();
+  if(t==="ventas")renderVentas();
+  if(t==="clientes")renderClientes();
+  if(t==="ofertas")renderOfAdmin();
+  if(t==="combos")renderCoAdmin();
+}
+function renderStockRows(){
+  document.getElementById("stockRows").innerHTML=meats.map(function(m){
+    return'<div class="srow"><span class="sname">'+m.name+'</span><input class="sinput" type="number" id="s'+m.id+'" value="'+m.stock+'" min="0"/><span style="font-size:11px;color:#888;">lib.</span></div>';
+  }).join("");
+}
+function saveStocks(){
+  meats.forEach(function(m){var v=parseInt(document.getElementById("s"+m.id).value);m.stock=isNaN(v)?0:v;});
+  save();renderMeats();renderStats();renderTicker();closeAdmin();toast("Stock guardado");
+}
+function alertStock(){
+  var b=meats.filter(function(m){return m.stock<=3&&m.stock>0;});
+  var a=meats.filter(function(m){return m.stock<=0;});
+  if(!b.length&&!a.length){toast("Todo el stock esta bien");return;}
+  var msg="Alerta stock - Tienda Nino Robin\n";
+  if(a.length)msg+="\nAgotados: "+a.map(function(m){return m.name;}).join(", ");
+  if(b.length)msg+="\nStock bajo: "+b.map(function(m){return m.name+" ("+m.stock+" lib.)";}).join(", ");
+  window.open("https://wa.me/57"+WA+"?text="+encodeURIComponent(msg),"_blank");
+}
+async function renderPeds(){
+  var el=document.getElementById("pedList");
+  el.innerHTML='<p style="font-size:12px;color:#888;">Cargando...</p>';
+  var pend=orders.filter(function(o){return !o.confirmado;}).slice().reverse().slice(0,20);
+  var conf=orders.filter(function(o){return o.confirmado;}).slice().reverse().slice(0,5);
+  if(!pend.length&&!conf.length){el.innerHTML='<p style="font-size:13px;color:#aaa;text-align:center;">No hay pedidos aun</p>';return;}
+  var html="";
+  if(pend.length){
+    html+='<p style="font-size:12px;font-weight:700;color:#c2410c;margin-bottom:6px;">Pendientes ('+pend.length+'):</p>';
+    html+=pend.map(function(o,i){
+      return'<div class="pedrow"><strong>'+o.name+'</strong>'+(o.phone?" | "+o.phone:"")+"<br>"+o.addr+"<br>"+o.items+"<br><strong>$"+o.total.toLocaleString("es-CO")+"</strong> | "+o.date+
+        '<br><div style="display:flex;gap:6px;margin-top:6px;">'+
+        '<button style="padding:6px 14px;background:#16a34a;color:#fff;border:none;border-radius:8px;font-size:12px;cursor:pointer;font-weight:700;" onclick="confPed('+i+')">Confirmar recibido</button>'+
+        '<button style="padding:6px 12px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:12px;cursor:pointer;font-weight:700;" onclick="cancelPed('+i+')">Cancelar</button>'+
+        '</div></div>';
+    }).join("");
+  }
+  if(conf.length){
+    html+='<p style="font-size:12px;font-weight:700;color:#16a34a;margin:10px 0 6px;">Confirmados:</p>';
+    html+=conf.map(function(o){return'<div class="pedrow pedok"><strong>'+o.name+"</strong> - $"+o.total.toLocaleString("es-CO")+" | OK</div>";}).join("");
+  }
+  el.innerHTML=html;
+}
+async function confPed(i){
+  var pend=orders.filter(function(o){return !o.confirmado;}).slice().reverse();
+  var o=pend[i];if(!o)return;
+  var ri=orders.findIndex(function(x){return x.date===o.date&&x.name===o.name&&!x.confirmado;});
+  if(ri<0)return;
+  orders[ri].confirmado=true;var pts=o.total>=20000?1:0;orders[ri].puntos=pts;save();
+  var cel=(o.phone||"").replace(/\D/g,"")||o.cel||"";
+  if(window.db&&cel&&o.id){
+    try{
+      await fbUS("clientes",cel,"pedidos",o.id,{confirmado:true,puntos:pts});
+      var cl=await fbG("clientes",cel);
+      if(cl){var np=(cl.puntos||0)+pts;var nt=(cl.totalGastado||0)+o.total;await fbS("clientes",cel,{puntos:np,totalGastado:nt});if(curCli&&curCli.cel===cel){curCli.puntos=np;localStorage.setItem("cli",JSON.stringify(curCli));renderBanner();}}
+    }catch(e){}
+  }
+  renderPeds();toast("Pedido de "+o.name+" confirmado"+(pts?" | +1 punto":""));
+}
+function cancelPed(i){
+  var pend=orders.filter(function(o){return !o.confirmado;}).slice().reverse();
+  var o=pend[i];if(!o)return;
+  if(!confirm("Cancelar pedido de "+o.name+"?"))return;
+  var ri=orders.findIndex(function(x){return x.date===o.date&&x.name===o.name&&!x.confirmado;});
+  if(ri>=0){orders.splice(ri,1);save();}
+  renderPeds();toast("Pedido cancelado");
+}
+function renderAdminProds(){
+  document.getElementById("apList").innerHTML=prods.map(function(p){
+    var u=p.unit||"und";
+    return'<div class="apr"><div class="api"><div class="apn">'+p.name+'</div>'+
+      '<div class="aps">$<input type="number" value="'+p.price+'" style="width:65px;font-size:11px;border:1px solid #ddd;border-radius:6px;padding:2px 5px;outline:none;" onchange="updPrice('+p.id+',this.value)"/> | Stock: <input type="number" value="'+p.stock+'" min="0" style="width:50px;font-size:11px;border:1px solid #ddd;border-radius:6px;padding:2px 5px;outline:none;" onchange="updStock('+p.id+',this.value)"/> '+u+'</div></div>'+
+      '<button class="btnred" onclick="delProd('+p.id+')">X</button></div>';
+  }).join("");
+}
+function updPrice(id,v){var p=prods.find(function(x){return x.id===id;});if(p&&parseInt(v)>0){p.price=parseInt(v);save();renderProds();renderTicker();}}
+function updStock(id,v){var p=prods.find(function(x){return x.id===id;});if(p){p.stock=parseInt(v)||0;save();renderProds();renderStats();renderTicker();}}
+function delProd(id){if(!confirm("Eliminar este producto?"))return;prods=prods.filter(function(p){return p.id!==id;});save();renderAdminProds();renderAll();}
+function toggleMeat(){document.getElementById("meatRow").style.display=document.getElementById("nType").value==="carne"?"flex":"none";}
+function prevImg(inp){if(!inp.files[0])return;var r=new FileReader();r.onload=function(e){imgData=e.target.result;var pr=document.getElementById("imgPrev");pr.src=imgData;pr.style.display="block";};r.readAsDataURL(inp.files[0]);}
+function addProd(){
+  var name=document.getElementById("nName").value.trim();
+  var cat=document.getElementById("nCat").value.trim();
+  var emoji=document.getElementById("nEmoji").value.trim();
+  var price=parseInt(document.getElementById("nPrice").value)||0;
+  var stock=parseInt(document.getElementById("nStock").value)||0;
+  var unit=document.getElementById("nUnit").value;
+  var type=document.getElementById("nType").value;
+  if(!name||!cat){toast("Nombre y categoria obligatorios");return;}
+  if(type==="carne"){
+    var pr=parseInt(document.getElementById("nMeatP").value)||0;
+    meats.push({id:"m"+Date.now(),name:name,emoji:emoji,priceRef:pr,stock:stock});
+  }else{
+    var p={id:nxtId++,name:name,cat:cat,price:price,stock:stock,emoji:emoji,type:"normal",unit:unit};
+    if(imgData)p.img=imgData;
+    prods.push(p);
+  }
+  lastProd=name;save();renderAll();
+  ["nName","nCat","nEmoji","nPrice","nStock","nMeatP"].forEach(function(id){var el=document.getElementById(id);if(el)el.value="";});
+  document.getElementById("imgPrev").style.display="none";imgData=null;
+  toast(name+" agregado al catalogo");showTab("prods");
+}
+function renderVentas(){
+  var today=new Date().toLocaleDateString("es-CO");
+  var tod=orders.filter(function(o){return o.date.startsWith(today);});
+  var tv=tod.reduce(function(s,o){return s+o.total;},0);
+  document.getElementById("salesEl").innerHTML=
+    '<div class="sc"><div class="sn">'+tod.length+'</div><div class="sl">Pedidos hoy</div></div>'+
+    '<div class="sc"><div class="sn">$'+tv.toLocaleString("es-CO")+'</div><div class="sl">Vendido hoy</div></div>'+
+    '<div class="sc"><div class="sn">'+orders.length+'</div><div class="sl">Total pedidos</div></div>'+
+    '<div class="sc"><div class="sn">$'+orders.reduce(function(s,o){return s+o.total;},0).toLocaleString("es-CO")+'</div><div class="sl">Total ventas</div></div>';
+  document.getElementById("ordersEl").innerHTML=orders.slice().reverse().slice(0,15).map(function(o){
+    return'<div class="oi">'+(o.confirmado?"[OK] ":"[Pend] ")+'<strong>'+o.name+'</strong> | $'+o.total.toLocaleString("es-CO")+" | "+o.date+"</div>";
+  }).join("");
+}
+async function renderClientes(){
+  document.getElementById("clientesEl").innerHTML='<p style="font-size:12px;color:#888;">Cargando...</p>';
+  var cls=await fbGA("clientes");
+  if(!cls.length){document.getElementById("clientesEl").innerHTML='<p style="font-size:13px;color:#aaa;text-align:center;">Aun no hay clientes</p>';return;}
+  cls.sort(function(a,b){return(b.puntos||0)-(a.puntos||0);});
+  document.getElementById("clientesEl").innerHTML=cls.map(function(c,i){
+    var nv=getNv(c.puntos||0);
+    return'<div class="clrow"><div class="clav">'+(i===0?"1":i===1?"2":i===2?"3":c.nombre.charAt(0).toUpperCase())+'</div>'+
+      '<div class="cldet"><div class="clname">'+c.nombre+'</div><div class="clsub">'+c.cel+' | $'+(c.totalGastado||0).toLocaleString("es-CO")+" | "+nv.a+'</div></div>'+
+      '<span class="ptsbadge">'+(c.puntos||0)+' pts</span></div>';
+  }).join("");
+}
+function renderOfAdmin(){
+  document.getElementById("ofProd").innerHTML=prods.map(function(p){return'<option value="'+p.id+'">'+p.name+" ($"+p.price.toLocaleString("es-CO")+")</option>";}).join("");
+  document.getElementById("ofList").innerHTML=ofertas.map(function(o){
+    var p=prods.find(function(x){return x.id===o.id;});
+    return p?'<div class="srow"><span class="sname">'+p.name+" - $"+o.price.toLocaleString("es-CO")+" (-"+o.pct+"%)</span><button class='btnred' onclick='rmOf('+o.id+')'>X</button></div>':"";
+  }).join("");
+}
+function addOferta(){
+  var id=parseInt(document.getElementById("ofProd").value);
+  var price=parseInt(document.getElementById("ofPrice").value);
+  var pct=parseInt(document.getElementById("ofPct").value);
+  if(!price||!pct){toast("Completa precio y descuento");return;}
+  ofertas=ofertas.filter(function(o){return o.id!==id;});ofertas.push({id:id,price:price,pct:pct});
+  save();renderOfAdmin();renderAll();toast("Oferta activada");
+}
+function rmOf(id){ofertas=ofertas.filter(function(o){return o.id!==id;});save();renderOfAdmin();renderAll();}
+function renderCoAdmin(){
+  document.getElementById("coList").innerHTML=combos.map(function(c,i){
+    var b=c.priceBefore||Math.round(c.price*1.15);
+    return'<div class="srow"><span class="sname">'+c.name+' - $'+c.price.toLocaleString("es-CO")+'</span><button class="btnred" onclick="rmCo('+i+')">X</button></div>';
+  }).join("");
+}
+function addCombo(){
+  var name=document.getElementById("coName").value.trim();
+  var items=document.getElementById("coItems").value.trim();
+  var price=parseInt(document.getElementById("coPrice").value)||0;
+  var pb=parseInt(document.getElementById("coBefore").value)||Math.round(price*1.15);
+  var pct=parseInt(document.getElementById("coPct").value)||Math.round((1-price/pb)*100);
+  var emoji=document.getElementById("coEmoji").value.trim();
+  if(!name||!items||!price){toast("Completa todos los campos");return;}
+  combos.push({name:name,items:items,price:price,priceBefore:pb,pct:pct,emoji:emoji});
+  save();renderCoAdmin();renderCombos();
+  ["coName","coItems","coPrice","coBefore","coPct","coEmoji"].forEach(function(id){document.getElementById(id).value="";});
+  toast("Combo creado");
+}
+function rmCo(i){combos.splice(i,1);save();renderCoAdmin();renderCombos();}
+function prevAviso(){
+  var t=document.getElementById("avTipo").value;var p=document.getElementById("avProd").value.trim();
+  var msg="";
+  if(t==="agotado")msg="Hola vecino! Te avisamos desde Tienda Nino Robin que "+p+" se agoto por hoy. Manana vuelve a haber.";
+  else if(t==="nuevo")msg="Hola vecino! Ya llego "+p+" a Tienda Nino Robin en El Pueblito. Ven o pide tu domicilio!";
+  else if(t==="oferta")msg="Hola vecino! Oferta especial hoy en Tienda Nino Robin: "+p+". Aprovecha!";
+  else msg=p;
+  document.getElementById("avPrev").textContent=msg||"Completa el formulario.";
+}
+function sendAviso(){
+  var t=document.getElementById("avTipo").value;var p=document.getElementById("avProd").value.trim();
+  if(!p){toast("Escribe el producto o mensaje");return;}
+  var msg="";
+  if(t==="agotado")msg="Hola vecino! Te avisamos desde Tienda Nino Robin que "+p+" se agoto por hoy.";
+  else if(t==="nuevo")msg="Hola vecino! Ya llego "+p+" a Tienda Nino Robin en El Pueblito!";
+  else if(t==="oferta")msg="Hola vecino! Oferta especial hoy: "+p+" en Tienda Nino Robin!";
+  else msg=p;
+  window.open("https://wa.me/57"+WA+"?text="+encodeURIComponent(msg),"_blank");
+  toast("WhatsApp abierto");
+}
+function doLogout(){adminIn=false;document.getElementById("loginBox").style.display="block";document.getElementById("adminBox").style.display="none";document.getElementById("aUser").value="";closeAdmin();}
+
+var QBOT=["Domicilio en El Pueblito","Ver carnes del dia","Puntos para diciembre","Hablar con Robin","Que hay hoy?"];
+
+function toggleBot(){
+  botOpen=!botOpen;
+  document.getElementById("botWin").classList.toggle("on",botOpen);
+  if(botOpen&&!document.getElementById("botMsgs").children.length){
+    var h=new Date().getHours();
+    var s=h<12?"Buenos dias":h<18?"Buenas tardes":"Buenas noches";
+    addBot(s+" vecino! Soy Robin Bot de Tienda Nino Robin, tu tienda de confianza aqui en El Pueblito desde hace mas de 20 anos. Como te puedo ayudar hoy?");
+    setQ(QBOT);
+  }
+}
+function addBot(t){var e=document.createElement("div");e.className="msg bot";e.textContent=t;document.getElementById("botMsgs").appendChild(e);document.getElementById("botMsgs").scrollTop=9999;}
+function addUser(t){var e=document.createElement("div");e.className="msg user";e.textContent=t;document.getElementById("botMsgs").appendChild(e);document.getElementById("botMsgs").scrollTop=9999;}
+function setQ(opts){document.getElementById("botQuick").innerHTML=(opts||[]).map(function(q){return'<button class="qbtn" onclick="doQ(\''+q+'\')">'+q+'</button>';}).join("");}
+function doQ(q){addUser(q);processBot(q);}
+function sendMsg(){var i=document.getElementById("botIn");var t=i.value.trim();if(!t)return;addUser(t);i.value="";processBot(t);}
+
+function getCat(){
+  var txt="Esto es lo que hay hoy en Tienda Nino Robin:\n\n";
+  var cats={};
+  prods.filter(function(p){return p.stock>0;}).forEach(function(p){if(!cats[p.cat])cats[p.cat]=[];cats[p.cat].push(p);});
+  Object.keys(cats).forEach(function(cat){txt+=cat+":\n";cats[cat].forEach(function(p){txt+="  "+p.name+": $"+p.price.toLocaleString("es-CO")+"\n";});});
+  var cd=meats.filter(function(m){return m.stock>0;});
+  if(cd.length){txt+="\nCarnes y aves frescas:\n";cd.forEach(function(m){txt+="  "+m.name+": $"+m.priceRef.toLocaleString("es-CO")+"/libra\n";});}
+  var ag=prods.filter(function(p){return p.stock===0;}).concat(meats.filter(function(m){return m.stock===0;}));
+  if(ag.length)txt+="\nAgotados por hoy: "+ag.map(function(x){return x.name;}).join(", ");
+  return txt;
+}
+
+function processBot(text){
+  var t=text.toLowerCase();
+
+  if(botSt.step==="idle"&&(t.includes("sorprende")||t.includes("sorpresa"))){
+    botSt.step="oc";
+    setTimeout(function(){addBot("Uy que bueno vecino! Para que ocasion te sorprendo?");setQ(["Desayuno","Almuerzo","Cena","Productos basicos"]);},600);return;
+  }
+  if(botSt.step==="oc"){
+    var oc=t.includes("desayuno")?"desayuno":t.includes("almuerzo")?"almuerzo":t.includes("cena")?"cena":(t.includes("basico")||t.includes("producto"))?"basicos":null;
+    if(oc){botSt.oc=oc;botSt.step="monto";setTimeout(function(){addBot("Cuanto tienes para gastar vecino? Aqui siempre hay algo rico para cada bolsillo.");setQ(["$5.000","$7.000","$10.000","$15.000","Lo que sea"]);},600);return;}
+  }
+  if(botSt.step==="monto"){
+    var mn=0;
+    if(t.includes("5000")||t.includes("5.000"))mn=5000;
+    else if(t.includes("7000")||t.includes("7.000"))mn=7000;
+    else if(t.includes("10000")||t.includes("10.000"))mn=10000;
+    else if(t.includes("15000")||t.includes("15.000"))mn=15000;
+    else if(t.includes("20000")||t.includes("20.000"))mn=20000;
+    else if(t.includes("lo que sea")||t.includes("aleatorio"))mn=[5000,7000,10000,15000][Math.floor(Math.random()*4)];
+    if(mn>0){
+      botSt.step="idle";var oc2=botSt.oc;
+      var cd=meats.filter(function(m){return m.stock>0;});var r="";
+      if(oc2==="basicos"){r="Con $"+mn.toLocaleString("es-CO")+" para basicos te recomiendo:\n\n";prods.filter(function(p){return p.stock>0&&p.price<=mn;}).slice(0,3).forEach(function(p){r+="- "+p.name+": $"+p.price.toLocaleString("es-CO")+"\n";});r+="\nEncuentralos en el catalogo arriba vecino!";}
+      else{var rc=REC[oc2]||REC.almuerzo;var receta=rc[Math.floor(Math.random()*rc.length)];if(cd.length){var cr=cd.find(function(m){return m.name.toLowerCase().includes(receta.ing.toLowerCase());})||cd[Math.floor(Math.random()*cd.length)];r="Listo vecino! Para tu "+oc2+" con $"+mn.toLocaleString("es-CO")+":\n\n"+receta.nombre+"\nCarne: "+cr.name+" ($"+cr.priceRef.toLocaleString("es-CO")+"/lib)\n"+receta.nota+"\n\nEscribe $"+mn.toLocaleString("es-CO")+" en la seccion de carnes.";}else{r="Uy vecino, hoy se agotaron las carnes! Pasa temprano manana. Mientras mira el catalogo arriba.";}}
+      setTimeout(function(){addBot(r);setQ(QBOT);},600);return;
+    }
+  }
+
+  botSt.step="idle";
+  var K=[
+    ["que hay",getCat()],["que tienen",getCat()],["catalogo",getCat()],
+    ["horario","Estamos aqui en El Pueblito para servirte vecino:\n\nLunes a Viernes: 6:30 AM - 10:00 PM\nSabado: 6:30 AM - 11:00 PM\nDomingo: 7:00 AM - 9:00 PM\nFestivos: 6:30 AM - 1:30 PM\n\nMas de 20 anos atendiendote!"],
+    ["festivo","Los festivos abrimos de 6:30 AM a 1:30 PM. Ven tempranito vecino!"],
+    ["domicilio","Claro vecino! Hacemos domicilios rapidos en:\n\nPrioridad: Barrio El Pueblito\nDisponible: Los Angeles 1, 2 y 3\nConsultar: Zonas lejanas\n\nLlena el formulario en la pagina o escribeme al WhatsApp al +57 304 210 9786."],
+    ["zona","Domicilios en El Pueblito (prioridad), Los Angeles 1/2/3 y barrios cercanos. Para zonas lejanas consultanos por WhatsApp."],
+    ["carne","Tenemos carnes frescas todos los dias vecino!\n\nCarne blanda: $19.000/libra\nPollo entero: $5.500/libra\nPechuga con hueso: $8.000/libra\nPechuga sin hueso: $11.000/libra\nHigado: $5.000/libra\nPanza: $5.000/libra\n\nEscribe cuanto quieres gastar en la seccion de carnes."],
+    ["pollo","El pollo entero esta a $5.500/libra bien fresquito. Pechuga con hueso $8.000 y sin hueso $11.000."],
+    ["pechuga","Pechuga con hueso a $8.000/libra y sin hueso a $11.000/libra. Todo fresco!"],
+    ["arroz","El Arroz Viviana esta a $2.000 la libra. El clasico de la cocina costena!"],
+    ["papa","La papa llega los jueves y domingos fresquita. Pronto estara en el catalogo."],
+    ["verdura","Las verduras llegan fresquitas los jueves y domingos. Consultanos por WhatsApp."],
+    ["pago","Aceptamos efectivo, Nequi y Daviplata vecino."],
+    ["nequi","Claro! Aceptamos Nequi y Daviplata. Escribenos al WhatsApp para el numero."],
+    ["punto","Por cada compra confirmada de $20.000 o mas ganas 1 punto vecino:\n\n1-30 puntos = Ancheta pequena en diciembre\n31-60 puntos = Ancheta mediana\n61-99 puntos = Ancheta grande\n100+ puntos = Ancheta PREMIUM!\n\nRegistrate con tu celular para acumular."],
+    ["ancheta","En diciembre premiamos a los vecinos que mas nos apoyan con anchetas. Registrate para participar!"],
+    ["cancelar","Para cancelar un pedido escribenos rapidito al WhatsApp al +57 304 210 9786."],
+    ["queja","Ay vecino, lamentamos eso! Escribenos al WhatsApp al +57 304 210 9786 y Robin mismo lo soluciona."],
+    ["hablar con robin","Puedes escribirle a Robin directamente al WhatsApp al +57 304 210 9786. El mismo te atiende!"],
+    ["hola","Hola vecino! Bienvenido a Tienda Nino Robin, tu tienda de confianza en El Pueblito. Como te puedo ayudar?"],
+    ["buenos dias","Buenos dias vecino! Que se te antoja hoy?"],
+    ["buenas tardes","Buenas tardes vecino! En que te puedo ayudar?"],
+    ["buenas noches","Buenas noches vecino! Todavia estamos abiertos para servirte."],
+    ["buenos","Bienvenido vecino! En que te puedo ayudar?"],
+    ["buenas","Bienvenido vecino! Como te puedo ayudar?"],
+    ["gracias","Con mucho gusto vecino! Para eso estamos. Que tengas un excelente dia!"],
+    ["adios","Hasta luego vecino! Vuelve pronto a Tienda Nino Robin."],
+    ["whatsapp","Puedes escribirle a Robin directamente al WhatsApp al +57 304 210 9786."],
+    ["ubicacion","Estamos en el Barrio El Pueblito, Barranquilla. Tu tienda de confianza!"]
+  ];
+  if(lastProd)K.unshift(["nuevo","Uy vecino! Acaba de llegar: "+lastProd+". Ya esta en el catalogo arriba!"]);
+  var rep=null;
+  for(var i=0;i<K.length;i++){if(t.includes(K[i][0])){rep=K[i][1];break;}}
+  if(!rep){rep="Uy vecino, no entendi bien! Puedo ayudarte con:\n\n- Ver que hay hoy\n- Horario\n- Zonas de domicilio\n- Precios de carnes\n- Metodos de pago\n- Puntos y ancheta de diciembre\n- Sorprendeme\n- Hablar con Robin\n\nEscribeme de nuevo o usa los botones.";}
+  setTimeout(function(){addBot(rep);setQ(QBOT);},600);
+}
+
+function toast(msg){var t=document.getElementById("toastEl");t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2800);}
+
+load();
+renderAll();
+</script>
+</body>
+</html>
